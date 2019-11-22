@@ -1,0 +1,2 @@
+include ':app', ':GrUtils'
+rootProject.name='LoveReads'

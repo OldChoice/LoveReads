@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:clipChildren="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/activity_topback" />
+
+        <View style="@style/divide_horizontal" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
+
+            <gr.free.lovereads.myview.DeletableEditText
+                android:id="@+id/search_view"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="25dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/bg_edittext"
+                android:drawableRight="@drawable/ic_edittext_delete"
+                android:drawablePadding="6dp"
+                android:hint="请输入"
+                android:imeOptions="actionSearch"
+                android:inputType="number"
+                android:paddingLeft="9dp"
+                android:paddingTop="7dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="7dp"
+                android:singleLine="true"
+                android:text=""
+                android:textColor="#000"
+                android:textCursorDrawable="@null"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
+        <View style="@style/divide_horizontal" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_number_recycle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/search_number_none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:text="暂无数据"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+
+</RelativeLayout>

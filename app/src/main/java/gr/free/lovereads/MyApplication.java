@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 
 import androidx.multidex.MultiDex;
 
-import gr.free.grutils.GrUtilInstance;
+import gr.free.grfastuitils.GrUtilsInstance;
 
 /**
  * Create by guorui on 2019/11/8
@@ -21,7 +21,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         this.instance = this;
-        GrUtilInstance.getInstance(getInstance());
+        GrUtilsInstance.getInstance(getInstance());
 
     }
 

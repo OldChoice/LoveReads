@@ -7,8 +7,8 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import gr.free.grutils.tools.MyToast;
-import gr.free.grutils.tools.StatusBarUtils;
+import gr.free.grfastuitils.tools.MyToast;
+import gr.free.grfastuitils.tools.StatusBarUtils;
 import gr.free.lovereads.R;
 import gr.free.lovereads.mainreads.manager.ActivityBaseSet;
 import gr.free.lovereads.mainreads.manager.AppManager;

@@ -65,11 +65,8 @@ dependencies {
     implementation 'com.github.Zzzia:EasyBook:2.55'
     //viewModel & lifeCycle
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
-    implementation project(path: ':GrUtils')
 
-//    implementation 'com.github.OldChoice:GrUtils:1.11.19.3@aar'
-//    implementation 'com.github.Dovar66:DToast:1.1.5'
-    implementation 'com.github.OldChoice:DToast:1.11'
+    implementation 'com.github.OldChoice:GrFastUtils:1.11.22.1'
 
 
 }

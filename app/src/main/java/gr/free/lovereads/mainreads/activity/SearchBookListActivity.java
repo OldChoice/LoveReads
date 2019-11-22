@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
-import gr.free.grutils.tools.MyToast;
+import gr.free.grfastuitils.tools.MyToast;
 import gr.free.lovereads.R;
 import gr.free.lovereads.mainreads.activitybase.BaseActivity;
 import gr.free.lovereads.mainreads.adapter.BookListAdapter;

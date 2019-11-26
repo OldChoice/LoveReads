@@ -22,7 +22,7 @@
             android:background="@color/white"
             android:orientation="horizontal">
 
-            <gr.free.lovereads.myview.DeletableEditText
+            <gr.free.grfastuitils.myview.DeletableEditText
                 android:id="@+id/search_view"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"

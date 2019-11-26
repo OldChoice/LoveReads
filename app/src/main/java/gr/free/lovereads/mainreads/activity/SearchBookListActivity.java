@@ -17,18 +17,16 @@ import android.widget.TextView;
 
 import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
+import gr.free.grfastuitils.activitybase.BaseActivity;
+import gr.free.grfastuitils.myview.DeletableEditText;
+import gr.free.grfastuitils.myview.DividerDecoration;
 import gr.free.grfastuitils.tools.MyToast;
 import gr.free.lovereads.R;
-import gr.free.lovereads.mainreads.activitybase.BaseActivity;
 import gr.free.lovereads.mainreads.adapter.BookListAdapter;
-import gr.free.lovereads.myview.DeletableEditText;
-import gr.free.lovereads.myview.DividerDecoration;
-import gr.free.lovereads.tools.Sharpreferens;
 
 public class SearchBookListActivity extends BaseActivity implements View.OnClickListener, BGAOnItemChildClickListener, BGAOnRVItemClickListener {
     private TextView tvTitle;
     private ImageView ivBack;
-    private Sharpreferens sp;
     private DeletableEditText etNumber;
     private RecyclerView recyclerView;
     private BookListAdapter adapter;

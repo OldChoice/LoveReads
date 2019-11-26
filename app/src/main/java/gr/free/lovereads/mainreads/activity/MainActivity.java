@@ -2,8 +2,8 @@ package gr.free.lovereads.mainreads.activity;
 
 import android.os.Bundle;
 
+import gr.free.grfastuitils.activitybase.BaseActivity;
 import gr.free.lovereads.R;
-import gr.free.lovereads.mainreads.activitybase.BaseActivity;
 
 public class MainActivity extends BaseActivity {
 

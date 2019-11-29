@@ -35,7 +35,6 @@
                 android:drawablePadding="6dp"
                 android:hint="请输入"
                 android:imeOptions="actionSearch"
-                android:inputType="number"
                 android:paddingLeft="9dp"
                 android:paddingTop="7dp"
                 android:paddingRight="8dp"

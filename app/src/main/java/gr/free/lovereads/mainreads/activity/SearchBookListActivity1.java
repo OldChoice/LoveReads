@@ -1,5 +1,6 @@
 package gr.free.lovereads.mainreads.activity;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -15,6 +16,12 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
+
+import com.zia.easybookmodule.bean.Book;
+
+import java.util.List;
+
 import cn.bingoogolapple.androidcommon.adapter.BGAOnItemChildClickListener;
 import cn.bingoogolapple.androidcommon.adapter.BGAOnRVItemClickListener;
 import gr.free.grfastuitils.activitybase.BaseActivity;
@@ -23,8 +30,14 @@ import gr.free.grfastuitils.myview.DividerDecoration;
 import gr.free.grfastuitils.tools.MyToast;
 import gr.free.lovereads.R;
 import gr.free.lovereads.mainreads.adapter.BookListAdapter;
+import gr.free.lovereads.mainreads.booktool.SearchViewModel1;
 
-public class SearchBookListActivity extends BaseActivity implements View.OnClickListener, BGAOnItemChildClickListener, BGAOnRVItemClickListener {
+/**
+ * Create by guorui on 2019/11/28
+ * Last update 2019/11/28
+ * Description:测试的Java代码模块
+ */
+public class SearchBookListActivity1 extends BaseActivity implements View.OnClickListener, BGAOnItemChildClickListener, BGAOnRVItemClickListener {
     private TextView tvTitle;
     private ImageView ivBack;
     private DeletableEditText etNumber;
@@ -32,7 +45,7 @@ public class SearchBookListActivity extends BaseActivity implements View.OnClick
     private BookListAdapter adapter;
     private TextView tvNone;
 
-//    private SearchViewModel viewModel;
+    public SearchViewModel1 viewModel1;
 
 
     @Override
@@ -44,15 +57,54 @@ public class SearchBookListActivity extends BaseActivity implements View.OnClick
         findView();
         setView();
         setListener();
+        initObservers();
+        search("天行");
 
-//        viewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
         MyToast.showShort("aaaaa");
+
+
+    }
+
+    private void initObservers() {
+
+        viewModel1.getLoadBooks().observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(List<Book> books) {
+                if (books != null) {
+                    System.out.println(books.size());
+                    System.out.println((books.get(1).getBookName()));
+                    MyToast.showShort("搜索到" + books.size() + "本书籍");
+                }
+            }
+        });
+
+        viewModel1.getPartBooks().observe(this, new Observer<List<Book>>() {
+            @Override
+            public void onChanged(List<Book> books) {
+                if (books != null) {
+                    System.out.println(books.size() + "----" + books.get(0).getBookName());
+                }
+            }
+        });
+        viewModel1.error.observe(this, new Observer<Exception>() {
+            @Override
+            public void onChanged(Exception e) {
+                MyToast.showShort(e.getMessage());
+            }
+        });
+        viewModel1.toast.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                MyToast.showShort(s);
+            }
+        });
 
     }
 
     @Override
     public void initValues() {
 
+        viewModel1 = ViewModelProviders.of(this).get(SearchViewModel1.class);
     }
 
     @Override
@@ -68,13 +120,13 @@ public class SearchBookListActivity extends BaseActivity implements View.OnClick
     }
 
     private void setRecycle() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchBookListActivity.this);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(SearchBookListActivity1.this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 //        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setHorizontalScrollBarEnabled(false);
         recyclerView.setAdapter(adapter);
-        recyclerView.addItemDecoration(new DividerDecoration(SearchBookListActivity.this, LinearLayoutManager.VERTICAL, Color.parseColor("#f4f4f4"), 1, 0, 0));
+        recyclerView.addItemDecoration(new DividerDecoration(SearchBookListActivity1.this, LinearLayoutManager.VERTICAL, Color.parseColor("#f4f4f4"), 1, 0, 0));
 
 
     }
@@ -158,8 +210,12 @@ public class SearchBookListActivity extends BaseActivity implements View.OnClick
     public void onRVItemClick(ViewGroup parent, View itemView, int position) {
     }
 
-    private void initObservers() {
-
-
+    private void search(String name) {
+        viewModel1.shutDown();
+        if (name != null && name.trim().equals("")) {
+            viewModel1.search(name);
+        }
     }
+
+
 }

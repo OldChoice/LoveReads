@@ -2,6 +2,7 @@ package gr.free.lovereads.mainreads.adapter;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.zia.easybookmodule.bean.Book;
 
 import cn.bingoogolapple.androidcommon.adapter.BGARecyclerViewAdapter;
@@ -26,6 +27,7 @@ public class BookListAdapter extends BGARecyclerViewAdapter<Book> {
         viewHolderHelper.setText(R.id.item_book_lastUpdateChapter, "最新：" + book.getLastChapterName());
         viewHolderHelper.setText(R.id.item_book_site, book.getBookName());
         viewHolderHelper.setText(R.id.item_book_lastUpdateTime, "更新：" + book.getLastUpdateTime());
+//        Glide.with(viewHolderHelper.getConvertView()).clear(viewHolderHelper.item_book_image)
 
     }
 

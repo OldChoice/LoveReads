@@ -4,7 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 /**
- * Created by zia on 2018/11/20.
+ * Create by guorui on 2019/11/26
+ * Last update 2019/11/26
+ * Description:
  */
 public class BaseViewModel extends ViewModel {
     public MutableLiveData<String> toast = new MutableLiveData<>();

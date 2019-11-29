@@ -40,7 +40,10 @@
             android:name=".mainreads.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
+        <activity
+            android:name=".mainreads.activity.SearchBookListActivity1"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".mainreads.activity.SearchBookListActivity"
             android:screenOrientation="portrait"

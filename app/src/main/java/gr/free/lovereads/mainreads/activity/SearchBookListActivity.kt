@@ -1,7 +1,6 @@
 package gr.free.lovereads.mainreads.activity
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -14,10 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.zia.easybookmodule.bean.Book
 import gr.free.grfastuitils.activitybase.BaseActivity
-import gr.free.grfastuitils.myview.DividerDecoration
 import gr.free.grfastuitils.tools.LoadUtils
 import gr.free.lovereads.R
-import gr.free.lovereads.mainreads.adapter.BookListAdapter
+import gr.free.lovereads.mainreads.adapter.BookAdapter
 import gr.free.lovereads.mainreads.booktool.SearchViewModel
 import kotlinx.android.synthetic.main.activity_search_book_list.*
 import kotlinx.android.synthetic.main.activity_topback.*
@@ -27,10 +25,11 @@ import kotlinx.android.synthetic.main.activity_topback.*
  * Last update 2019/11/28
  * Description:搜索书籍列表
  */
-class SearchBookListActivity : BaseActivity(), View.OnClickListener {
+class SearchBookListActivity : BaseActivity(), View.OnClickListener, BookAdapter.BookSelectListener {
 
     private lateinit var viewModel: SearchViewModel
-    private var adapter: BookListAdapter? = null
+    //    private var adapter: BookListAdapter? = null
+    var bookAdapter: BookAdapter? = null
     private var tvNone: TextView? = null
     private var loadingDialog: SweetAlertDialog? = null
 
@@ -53,13 +52,15 @@ class SearchBookListActivity : BaseActivity(), View.OnClickListener {
 
     override fun findView() {
         tvNone = findViewById(R.id.search_number_none)
-        adapter = BookListAdapter(search_number_recycle)
-
+        // adapter = BookListAdapter(search_number_recycle)
+        bookAdapter = BookAdapter(this)
+        search_number_recycle.layoutManager = LinearLayoutManager(this)
+        search_number_recycle.adapter = bookAdapter
     }
 
     override fun setView() {
         activity_topback_titile.text = "搜索"
-        setRecycle()
+        // setRecycle()
     }
 
     override fun setListener() {
@@ -69,7 +70,7 @@ class SearchBookListActivity : BaseActivity(), View.OnClickListener {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 search(search_view.text.toString())
                 clearInputMethod()
-//                CommClass.dateDiff()
+                // CommClass.dateDiff()
             }
             false
         })
@@ -85,41 +86,44 @@ class SearchBookListActivity : BaseActivity(), View.OnClickListener {
         imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
-    //快速设置列表
-    private fun setRecycle() {
-        val linearLayoutManager = LinearLayoutManager(this)
-        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
-        search_number_recycle.layoutManager = linearLayoutManager
-        // recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        search_number_recycle.isHorizontalScrollBarEnabled = false
-        search_number_recycle.adapter = adapter
-        search_number_recycle.addItemDecoration(DividerDecoration(this, LinearLayoutManager.VERTICAL, Color.parseColor("#f4f4f4"), 1, 0, 0))
-    }
+//    //快速设置列表
+//    private fun setRecycle() {
+//        val linearLayoutManager = LinearLayoutManager(this)
+//        linearLayoutManager.orientation = LinearLayoutManager.VERTICAL
+//        search_number_recycle.layoutManager = linearLayoutManager
+//        // recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+//        search_number_recycle.isHorizontalScrollBarEnabled = false
+//        search_number_recycle.adapter = adapter
+//        search_number_recycle.addItemDecoration(DividerDecoration(this, LinearLayoutManager.VERTICAL, Color.parseColor("#f4f4f4"), 1, 0, 0))
+//    }
 
     //查询列表搜索后返回的数据
     private fun initObservers() {
         viewModel.loadBooks.observe(this, Observer<List<Book>> {
             if (it != null) {
-                println(it.size)
-                println(it.get(1).bookName)
+                loadingDialog?.dismiss()
+//                println(it.size)
                 Toast.makeText(this, "搜索到${it.size}本书籍", Toast.LENGTH_LONG).show()
-                loadingDialog!!.dismiss()
             }
         })
 
         viewModel.partBooks.observe(this, Observer {
             if (it != null) {
-                println(it.size.toString())
-                println(it.get(0).bookName)
+//                println(it.size.toString())
 //                adapter?.data=it
-                adapter?.addMoreData(it)
+//                adapter?.addMoreData(it)
+                search_number_recycle.post {
+                    bookAdapter?.addBooks(search_view.text.toString(), it)
+                    search_number_recycle?.scrollToPosition(0)
+                }
 
             }
         })
 
         viewModel.error.observe(this, Observer {
             it?.printStackTrace()
-            Toast.makeText(this, it?.message, Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, it?.message, Toast.LENGTH_LONG).show()
+//            println(it?.message+"------------")
         })
 
         viewModel.toast.observe(this, Observer {
@@ -147,5 +151,12 @@ class SearchBookListActivity : BaseActivity(), View.OnClickListener {
 
 
         }
+    }
+
+    override fun onBookSelect(itemView: View, book: Book) {
+//        val intent = Intent(context, BookActivity::class.java)
+//        intent.putExtra("book", book)
+//        intent.putExtra("scroll", false)
+//        startActivity(intent)
     }
 }
